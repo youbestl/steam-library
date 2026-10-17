@@ -14,7 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def request_api(interface, method, key, **params):
     query = urlencode({"key": key, **params})
-    url = f"https://api.steampowered.com/{interface}/{method}/v0001/?{query}"
+    version = "v0002" if method == "GetPlayerSummaries" else "v0001"
+    url = f"https://api.steampowered.com/{interface}/{method}/{version}/?{query}"
     try:
         with urlopen(url, timeout=30) as response:
             return json.load(response)
@@ -46,8 +47,8 @@ def sync():
             raise RuntimeError(f"账号 {steamid} 游戏数量异常，本次保留旧数据")
         players = request_api("ISteamUser", "GetPlayerSummaries", key,
                               steamids=steamid).get("response", {}).get("players", [])
-        if not players:
-            raise RuntimeError(f"账号 {steamid} 未返回个人资料")
+        if not isinstance(players, list) or not players or not isinstance(players[0], dict):
+            raise RuntimeError(f"账号 {steamid} 个人资料返回结构异常")
         player = players[0]
         output.append({"steamid": steamid, "name": config.get("name") or player.get("personaname", steamid),
                        "games": [{"appid": g["appid"], "name": g.get("name") or str(g["appid"]),
