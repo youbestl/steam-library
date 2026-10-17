@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Steam 游戏馆</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header><a class="brand" href="./">◈ <span>游戏馆 <small>STEAM LIBRARY</small></span></a><span class="badge">个人游戏收藏</span></header>
+  <main>
+    <section class="hero"><div class="eyebrow">YOUR NEXT ADVENTURE</div><h1>下一段冒险，<br>就在游戏库里。</h1><p>看看收藏了什么，也看看那些还没开始的故事。</p></section>
+    <section class="stats" aria-label="游戏库统计"><div><strong id="count">—</strong><span>收藏游戏</span></div><div><strong id="hours">—</strong><span>累计游玩 / 小时</span></div><div><strong id="unplayed">—</strong><span>尚未开始</span></div></section>
+    <section class="collection"><div class="section-heading"><h2>全部游戏 <span id="result-count"></span></h2><p id="updated">尚未同步</p></div>
+      <div class="toolbar"><label>账号<select id="account"><option>尚未配置账号</option></select></label><label class="search">搜索游戏<input id="search" type="search" placeholder="输入游戏名称或 App ID…"></label><label>排序<select id="sort"><option value="time">游玩时间最多</option><option value="name">名称 A—Z</option><option value="recent">最近两周游玩</option></select></label><label>筛选<select id="filter"><option value="all">所有游戏</option><option value="played">已经玩过</option><option value="unplayed">尚未开始</option></select></label></div>
+      <p id="status" role="status">正在读取游戏库…</p><div id="games" class="grid"></div><button id="more" hidden>加载更多</button>
+    </section>
+  </main><footer>个人游戏库展示 · 数据来自 Steam · 非 Valve 官方网站<br>游戏库定时同步，展示的是最近一次成功同步的数据。</footer>
+</body>
+</html>
